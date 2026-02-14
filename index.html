@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Para vanessita 💖</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:black;
+  font-family: 'Courier New', cursive;
+}
+
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+.text{
+  position:absolute;
+  width:100%;
+  top:50%;
+  transform:translateY(-50%);
+  text-align:center;
+  font-size:60px;
+  color:#ff4da6;
+  text-shadow:0 0 20px #ff4da6, 0 0 40px #ff1a8c;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+  from { text-shadow:0 0 10px #ff4da6; }
+  to { text-shadow:0 0 40px #ff1a8c; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+<div class="text">vanessita 💖</div>
+
+<script>
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for(let i=0;i<200;i++){
+  stars.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    size: Math.random()*2,
+    speed: Math.random()*0.5
+  });
+}
+
+function draw(){
+  ctx.fillStyle="black";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle="white";
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+    ctx.fill();
+    s.y+=s.speed;
+
+    if(s.y>canvas.height){
+      s.y=0;
+      s.x=Math.random()*canvas.width;
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+</body>
+</html>
